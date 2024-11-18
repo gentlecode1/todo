@@ -13,7 +13,7 @@ describe('TaskComponent', () => {
 
     fixture = TestBed.createComponent(TaskComponent);
     component = fixture.componentInstance;
-    component.task = { id: 0, title: 'prueba', isCompleted: false }
+    component.task = { id: 0, title: 'prueba', isCompleted: false };
     fixture.detectChanges();
   });
 
@@ -28,7 +28,7 @@ describe('TaskComponent', () => {
 
   it('should start with the checkbox unchecked', async () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const checkboxElement = compiled.querySelector('input') as HTMLInputElement
+    const checkboxElement = compiled.querySelector('input') as HTMLInputElement;
     expect(checkboxElement?.checked).toBeFalsy();
   });
 });

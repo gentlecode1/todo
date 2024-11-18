@@ -1,5 +1,4 @@
 import angular from '@angular-eslint/eslint-plugin';
-import angularTemplate from '@angular-eslint/eslint-plugin-template';
 import pluginJs from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
 import globals from 'globals';
@@ -51,15 +50,5 @@ export default [
         },
       ],
     },
-  },
-  {
-    files: [
-      "**/*.html",
-    ],
-    plugins: {
-      '@angular-eslint/template': angularTemplate,
-    },
-    ...angularTemplate.recommended,
-    ...angularTemplate.configs.accessibility,
   },
 ];

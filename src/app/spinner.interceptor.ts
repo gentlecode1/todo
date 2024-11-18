@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { finalize } from 'rxjs';
 
 export const spinnerInterceptor: HttpInterceptorFn = (req, next) => {
-  const loadingHttpService = inject(LoadingHttpService)
+  const loadingHttpService = inject(LoadingHttpService);
   loadingHttpService.addRequest();
-  return next(req).pipe(finalize(() => loadingHttpService.deleteRequest()))
+  return next(req).pipe(finalize(() => loadingHttpService.deleteRequest()));
 };

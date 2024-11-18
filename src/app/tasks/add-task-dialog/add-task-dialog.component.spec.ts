@@ -9,7 +9,7 @@ describe('AddTaskDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddTaskDialogComponent, BrowserAnimationsModule]
+      imports: [AddTaskDialogComponent, BrowserAnimationsModule],
     })
       .compileComponents();
 

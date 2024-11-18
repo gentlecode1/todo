@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterOutlet } from '@angular/router';
 import { delay } from 'rxjs';
@@ -11,9 +11,10 @@ import { LoadingHttpService } from './loading-http.service';
   standalone: true,
   imports: [RouterOutlet, CommonModule, MatProgressSpinnerModule, HeaderComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   title = 'todo';
-  requestsCount$ = inject(LoadingHttpService).spinnerCounter$.asObservable().pipe(delay(0))
+  requestsCount$ = inject(LoadingHttpService).spinnerCounter$.asObservable().pipe(delay(0));
 }
