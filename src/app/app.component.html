@@ -1,0 +1,9 @@
+<div class="app-container">
+    <app-header />
+    <router-outlet />
+</div>
+@if(requestsCount$ | async){
+<div class="spinner-container">
+    <mat-spinner [diameter]="50"></mat-spinner>
+</div>
+}

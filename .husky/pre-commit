@@ -1,0 +1,2 @@
+npm run test:no-browser
+npm run eslint:quiet

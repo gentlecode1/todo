@@ -1,0 +1,15 @@
+div {
+    width: 50dvw;
+    border: 1px solid rgb(0, 92, 187, 50%);
+    padding: 0.4rem;
+
+    span {
+        width: 100%;
+        color: rgb(0, 92, 187);
+        font-size: large;
+    }
+
+    &:hover {
+        background-color: azure;
+    }
+}

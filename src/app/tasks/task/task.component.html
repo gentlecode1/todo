@@ -1,0 +1,5 @@
+<div>
+    <mat-checkbox [checked]="task.isCompleted" (change)="isCompletedOnChange($event.checked)">
+        <span [style.text-decoration]="task.isCompleted ? 'line-through' : 'none'">{{task.title}}</span>
+    </mat-checkbox>
+</div>

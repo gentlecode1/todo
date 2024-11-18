@@ -1,0 +1,13 @@
+.tasks-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 3rem;
+
+    .button-container .mat-mdc-button-base {
+        margin: 8px 8px 8px 0;
+        color: rgb(0, 92, 187, 50%)
+    }
+}
