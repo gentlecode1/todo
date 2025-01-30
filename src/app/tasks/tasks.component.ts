@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { BehaviorSubject, combineLatest, filter, map, mergeWith, Subject, switchMap } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, filter, ignoreElements, map, mergeWith, of, shareReplay, Subject, switchMap, tap } from 'rxjs';
 import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
 import { Task } from './task.type';
 import { TaskComponent } from './task/task.component';
@@ -24,15 +24,21 @@ import { TasksService } from './tasks.service';
         </button>
     </div>
     <input matInput type="text" [(ngModel)]="searchValue">
-    @for (task of filteredTasks$ | async; track task.id){
-    <app-task [task]="task" (isCompletedEventEmitter)="editTask($event)"></app-task>
+    @if(filteredTasks$ | async; as filteredTasks){
+      @for (task of filteredTasks; track task.id){
+        <app-task [task]="task" (isCompletedEventEmitter)="editTask($event)"></app-task>
+      }
     }
+    @if(tasksError$ | async; as error){
+      <span>{{error}}</span>
+    }
+   
 </div>`,
   styleUrl: './tasks.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TasksComponent {
-  private readonly tasksService = inject(TasksService);
+  readonly #tasksService = inject(TasksService);
   private readonly matDialog = inject(MatDialog);
   private readonly onCreateTask = new Subject<void>();
   private readonly onEditTask = new Subject<Task>();
@@ -48,14 +54,18 @@ export class TasksComponent {
   }
   private readonly afterCreateTask$ = this.onCreateTask.asObservable().pipe(
     switchMap(() => this.matDialog.open<AddTaskDialogComponent, undefined, Task>(AddTaskDialogComponent).afterClosed().pipe(filter(task => !!task))),
-    switchMap((task) => this.tasksService.postTask(task)),
-    switchMap(() => this.tasksService.getTasks()),
+    switchMap((task) => this.#tasksService.postTask(task)),
+    switchMap(() => this.#tasksService.getTasks()),
   );
   private readonly afterEditTask$ = this.onEditTask.asObservable().pipe(
-    switchMap((task) => this.tasksService.editTask(task)),
-    switchMap(() => this.tasksService.getTasks()),
+    switchMap((task) => this.#tasksService.editTask(task)),
+    switchMap(() => this.#tasksService.getTasks()),
   );
-  protected readonly tasks$ = this.tasksService.getTasks().pipe(mergeWith(this.afterCreateTask$, this.afterEditTask$));
+  protected readonly tasks$ = this.#tasksService.getTasks().pipe(
+    mergeWith(this.afterCreateTask$, this.afterEditTask$),
+    shareReplay(1),
+  );
+  protected readonly tasksError$ = this.tasks$.pipe(ignoreElements(), catchError((err) => of(err)));
   protected filteredTasks$ = combineLatest([this.tasks$, this.searchValue$]).pipe(
     map(([tasks, searchValue]) => this.filterTasks(tasks, searchValue)),
   );
