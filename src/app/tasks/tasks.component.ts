@@ -30,7 +30,7 @@ import { TasksService } from './tasks.service';
       }
     }
     @if(tasksError$ | async; as error){
-      <span>{{error}}</span>
+      <span id="error-message">{{error}}</span>
     }
    
 </div>`,
