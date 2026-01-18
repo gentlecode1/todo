@@ -1,75 +1,156 @@
 # Todo App
 
-## Overview
-Todo App is a simple app designed for managing tasks.
-You can create tasks and set them as completed or pending.
-There is a Mock Api for the backend (https://mockapi.io/projects/6738f1b4a3a36b5a62ed95ee)
+A modern task management application built with Angular 18 and Angular Material. Features a clean UI, real-time updates, and persistent storage via REST API.
 
-## Badges
 ![Angular Version](https://img.shields.io/badge/angular-18.2.0-red)
 ![Node Version](https://img.shields.io/badge/node-20.10.0-green)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue)
 
-## Installation
-To install and set up the Todo App, follow the steps below:
+## Features
+
+- Create, read, update, and delete tasks
+- Mark tasks as completed or pending
+- Clean, Material Design UI
+- Responsive layout
+- HTTP interceptor with loading spinner
+- ESLint integration with pre-commit hooks
+- Full test coverage with Jasmine
+- Docker support for easy deployment
+
+## Tech Stack
+
+- **Framework**: Angular 18.2
+- **UI Library**: Angular Material & CDK
+- **Language**: TypeScript
+- **State Management**: RxJS
+- **HTTP Client**: Angular HttpClient with interceptors
+- **Testing**: Jasmine + Karma
+- **Code Quality**: ESLint + Husky pre-commit hooks
+- **Backend**: Mock API (MockAPI.io)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20.10.0 or higher
+- npm
+
+### Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ITACCIONA/ene_ESCO__olympo_reports.git
-   cd olympo_reports
+   git clone https://github.com/gentlecode1/todo.git
+   cd todo
    ```
 
 2. Install dependencies:
-   For Node.js projects, run:
    ```bash
    npm install
    ```
 
 3. Start the development server:
    ```bash
-   npm run start
+   npm start
    ```
 
-6. Access the application:
-   Open your web browser and navigate to `http://localhost:4200`.
-
+4. Open your browser and navigate to:
+   ```
+   http://localhost:4200
+   ```
 
 ## Project Structure
-The following is the project's directory structure, along with brief descriptions of key files and directories:
+
 ```
-├── src/
-│   ├── app/
-│   │   ├── tasks/                   
-│   │   ├── header/                 
-│   │   ├── app.component.ts           
-│   │   └── app.config.ts              
-│   ├── assets/                        
-│   ├── environments/                  
-│   └── main.ts                       
-├── package.json                      
-└── README.md
+src/
+├── app/
+│   ├── tasks/                      # Tasks feature module
+│   │   ├── task/                   # Individual task component
+│   │   ├── add-task-dialog/        # Dialog for adding tasks
+│   │   ├── tasks.component.ts      # Main tasks container
+│   │   ├── tasks.service.ts        # Tasks HTTP service
+│   │   └── task.type.ts            # Task type definitions
+│   ├── header/                     # Header component
+│   ├── spinner.interceptor.ts      # HTTP loading interceptor
+│   ├── loading-http.service.ts     # Loading state service
+│   ├── app.component.ts            # Root component
+│   ├── app.config.ts               # App configuration
+│   └── app.routes.ts               # Routing configuration
+├── assets/                         # Static assets
+├── environments/                   # Environment configurations
+└── main.ts                         # Application entry point
 ```
+
+## Available Scripts
+
+### Development
+
+```bash
+npm start              # Start dev server
+npm run watch          # Build and watch for changes
+```
+
+### Testing
+
+```bash
+npm test                      # Run tests with browser
+npm run test:no-browser       # Run tests headless (CI)
+```
+
+### Code Quality
+
+```bash
+npm run eslint         # Run ESLint
+npm run eslint:quiet   # Run ESLint (errors only)
+```
+
+### Build
+
+```bash
+npm run build          # Production build
+```
+
+## Docker Deployment
+
+Build and run with Docker:
+
+```bash
+# Build image
+docker build -t todo-app .
+
+# Run container
+docker run -p 8080:80 todo-app
+```
+
+Access the app at `http://localhost:8080`
 
 ## Contributing
 
-Please adhere to the following guidelines:
+### Branch Naming
 
-- Branch Naming: Use descriptive names for branches, e.g., feature/add-login or fix/bug-in-comparison-chart.
-- Code Style: Maintain consistent formatting and code standards. Use eslint for validation.
-- Husky hooks: There are pre-commit hooks to preserve the quality of the source code.
+Use descriptive names:
+- `feature/add-task-filter`
+- `fix/task-deletion-bug`
+- `refactor/simplify-service`
 
-Useful commands:
+### Code Style
 
-- Run tests
-   ```bash
-   npm run test:no-browser
-   ```
+- Follow Angular style guide
+- Run ESLint before committing
+- Husky enforces pre-commit hooks
 
-- Run eslint
-   ```bash
-   npm run eslint
-   ```
+### Pre-commit Checks
 
-- Build
-   ```bash
-   npm run build
-   ```
+Husky automatically runs:
+- ESLint validation
+- TypeScript compilation check
+
+## API Integration
+
+The app uses MockAPI.io for backend services:
+- Endpoint: `https://mockapi.io/projects/6738f1b4a3a36b5a62ed95ee`
+- Full CRUD operations supported
+- Real-time data persistence
+
+## License
+
+MIT
